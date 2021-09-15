@@ -26,7 +26,6 @@
     padding: 50px 130px 33px 95px;
 }
 
-
 .login100-form {
     width: 290px;
 }
@@ -96,9 +95,9 @@ button {
     background: transparent;
 }
 
-    button:hover {
-        cursor: pointer;
-    }
+button:hover {
+    cursor: pointer;
+}
 
 .login100-form-btn {
     font-family: Montserrat-Bold;
@@ -110,13 +109,12 @@ button {
     height: 50px;
     border-radius: 25px;
     background: #04D361;
-    ;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0 25px;
 }
 
-    .login100-form-btn:hover {
-        background: #04BF58;
-    }
+.login100-form-btn:hover {
+    background: #04BF58;
+}

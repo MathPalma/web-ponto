@@ -42,7 +42,7 @@ export default function Register() {
                 <h1>Web&Ponto</h1>
                 <input type="text" value={userName} onChange={e => setUserName(e.target.value)} placeholder="Usuário" />
                 <input type="text" value={fullName} onChange={e => setUserFullName(e.target.value)} placeholder="Nome" />
-                <input type="text" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
                 <input type="text" value={cellphone} onChange={e => setCellPhone(e.target.value)} placeholder="Telefone" />
                 <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Senha" />
                 <input type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} placeholder="Confirmar Senha" />

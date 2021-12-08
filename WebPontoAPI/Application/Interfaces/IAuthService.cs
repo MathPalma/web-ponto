@@ -8,5 +8,6 @@ namespace Application.Interfaces
         Task<TokenModel> ValidarCredenciais(AuthUserModel userCredentials);
         Task<TokenModel> ValidarCredenciais(TokenModel token);
         Task<bool> RevovarToken(string usuario);
+        Task RegistrarUsuario(UsuarioModel user);
     }
 }

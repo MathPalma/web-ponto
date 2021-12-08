@@ -22,6 +22,7 @@ namespace DataAccessMySql.Repositories
                             WHERE Usuario = @Usuario";
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@Usuario", usuario, DbType.String);
+            db.Close();
 
             return await db.QueryFirstOrDefaultAsync<UsuarioModel>(query, parameters, commandType: CommandType.Text);
         }
@@ -34,6 +35,7 @@ namespace DataAccessMySql.Repositories
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@User", user, DbType.String);
             parameters.Add("@Password", password, DbType.String);
+            db.Close();
 
             return await db.QueryFirstOrDefaultAsync<UsuarioModel>(query, parameters, commandType: CommandType.Text);
         }
@@ -46,6 +48,7 @@ namespace DataAccessMySql.Repositories
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@ID", id, DbType.Int32);
             parameters.Add("@RefreshToken", refreshToken, DbType.String);
+            db.Close();
 
             await db.ExecuteAsync(query, parameters, commandType: CommandType.Text);
         }
@@ -60,7 +63,25 @@ namespace DataAccessMySql.Repositories
             parameters.Add("@ID", user.ID, DbType.Int32);
 
             await db.ExecuteAsync(query, parameters, commandType: CommandType.Text);
+            db.Close();
+
             return true;
+        }
+
+        public async Task RegistrarUsuario(UsuarioModel usuario)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@Usuario", usuario.Usuario, DbType.String);
+            parameters.Add("@Nome", usuario.Nome, DbType.String);
+            parameters.Add("@Senha", usuario.Senha, DbType.String);
+            parameters.Add("@Email", usuario.Email, DbType.String);
+
+            string query = @"INSERT INTO Colaborador
+                            (Usuario, Senha, Nome, Email)
+                            VALUES(@Usuario, @Senha, @Nome, @Email)";
+
+            await db.ExecuteAsync(query, parameters, commandType: CommandType.Text);
+            db.Close();
         }
 
     }

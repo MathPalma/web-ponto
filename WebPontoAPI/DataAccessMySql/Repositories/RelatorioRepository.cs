@@ -1,9 +1,12 @@
 ﻿using Dapper;
 using DataAccessMySql.Interfaces;
+using Domain.Models;
 using Domain.ViewModels;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DataAccessMySql.Repositories
@@ -16,13 +19,17 @@ namespace DataAccessMySql.Repositories
             db = GetMySqlConnection();
         }
 
-        public async Task BuscarPorDia(RelatorioDiaViewModel relatorioDia)
+        public async Task<List<RelatorioModel>> BuscarTodos(string usuario)
         {
+            string query = @"SELECT Data, Tipo FROM MarcacaoPonto
+                            WHERE Usuario = @Usuario
+                            ORDER BY Data";
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@Usuario", relatorioDia.Usuario, DbType.String);
-            parameters.Add("@DataInicio", new DateTime(relatorioDia.Data.Day, relatorioDia.Data.Month, relatorioDia.Data.Year) , DbType.DateTime);
-            parameters.Add("@DataFim", DateTime.Now, DbType.DateTime);
+            parameters.Add("@Usuario", usuario, DbType.String);
 
+            var result = await db.QueryAsync<RelatorioModel>(query, parameters, commandType: CommandType.Text);
+            db.Close(); 
+            return result.ToList();
         }
     }
 }

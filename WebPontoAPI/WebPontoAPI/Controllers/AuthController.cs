@@ -27,6 +27,15 @@ namespace WebPontoAPI.Controllers
         }
 
         [HttpPost]
+        [Route("register")]
+        public async Task<IActionResult> Register([FromBody] UsuarioModel user)
+        {
+            if (user == null) return BadRequest("Invalid client request");
+            await _authService.RegistrarUsuario(user);
+            return Ok();
+        }
+
+        [HttpPost]
         [Route("refresh")]
         public async Task<IActionResult> Refresh([FromBody] TokenModel tokenViewModel)
         {

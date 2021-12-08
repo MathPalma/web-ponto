@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import api from '../../services/api.js';
 import { Navbar, Nav, Table, Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
@@ -6,7 +7,18 @@ import "../styles/dashboard.scss";
 
 const Report = () => {
 
+    const [days, setDays] = useState([]);
+    const username = localStorage.getItem('userName');
     const history = useHistory();
+
+    useEffect(() => {
+        api.get(`/Relatorio/${username}`)
+            .then(response => {
+                setDays(response.data)
+            })
+
+        console.log(days);
+    });
 
     function Redirect(params) {
         switch (params) {
@@ -17,6 +29,7 @@ const Report = () => {
                 history.push('/reports');
                 break;
             default:
+                localStorage.clear();
                 history.push('/');
                 break;
         }
@@ -50,29 +63,16 @@ const Report = () => {
                                     <th>Hora Entrada</th>
                                     <th>Hora Saída</th>
                                 </tr>
+                                {days.map((day, i) => (
+                                    <tr key={i}>
+                                        <th>{Intl.DateTimeFormat('pt-BR').format(new Date(day.dia))}</th>
+                                        <th>{Intl.DateTimeFormat('pt-BR', {hour: 'numeric', minute: 'numeric'}).format(new Date(day.entrada))}</th>
+                                        <th>{Intl.DateTimeFormat('pt-BR', {hour: 'numeric', minute: 'numeric'}).format(new Date(day.saida))}</th>
+                                    </tr>
+                                ))
+                                }
+
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>07/12/2021</td>
-                                    <td>08:00</td>
-                                    <td>13:00</td>
-                                </tr>
-                                <tr>
-                                    <td>07/12/2021</td>
-                                    <td>14:00</td>
-                                    <td>17:00</td>
-                                </tr>
-                                <tr>
-                                    <td>08/12/2021</td>
-                                    <td>08:00</td>
-                                    <td>13:00</td>
-                                </tr>
-                                <tr>
-                                    <td>08/12/2021</td>
-                                    <td>14:00</td>
-                                    <td>17:00</td>
-                                </tr>
-                            </tbody>
                         </Table>
                     </div>
                 </div>

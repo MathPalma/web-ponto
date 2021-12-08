@@ -82,11 +82,14 @@ namespace WebPontoAPI
             services.AddTransient<ITokenService, TokenService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IPontoService, PontoService>();
+            services.AddScoped<IRelatorioService, RelatorioService>();
 
             services.AddScoped<IAuthRepository, AuthRepository>(s =>
            new AuthRepository(Configuration["ConnectionStrings:WEB_PONTO_DB"]));
             services.AddScoped<IPontoRepository, PontoRepository>(s =>
            new PontoRepository(Configuration["ConnectionStrings:WEB_PONTO_DB"]));
+            services.AddScoped<IRelatorioRepository, RelatorioRepository>(s =>
+           new RelatorioRepository(Configuration["ConnectionStrings:WEB_PONTO_DB"]));
 
             services.AddSwaggerGen(c =>
             {

@@ -1,10 +1,11 @@
 ﻿using Application.Interfaces;
+using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace WebPontoAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class PontoController : ControllerBase
     {
@@ -16,9 +17,9 @@ namespace WebPontoAPI.Controllers
 
         [HttpPost]
         [Route("marcar")]
-        public async Task<IActionResult> MarcarPonto([FromBody] string usuario)
+        public async Task<IActionResult> MarcarPonto(Username user)
         {
-            await _pontoService.MarcarPonto(usuario);
+            await _pontoService.MarcarPonto(user.username);
             return Ok();
         }
     }

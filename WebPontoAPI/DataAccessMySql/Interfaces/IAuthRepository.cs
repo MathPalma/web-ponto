@@ -9,5 +9,6 @@ namespace DataAccessMySql.Interfaces
         Task<UsuarioModel> ValidarCredenciais(string username, string password);
         Task AtualizarInfoUsuario(int id, string refreshToken);
         Task<bool> RevogarToken(string usuario);
+        Task RegistrarUsuario(UsuarioModel usuario);
     }
 }

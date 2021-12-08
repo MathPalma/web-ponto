@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Domain.Models;
 using Domain.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace WebPontoAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class RelatorioController : ControllerBase
     {
@@ -19,12 +20,11 @@ namespace WebPontoAPI.Controllers
             _relatorioService = relatorioService;
         }
 
-        /*[HttpGet]
-        [Route("Pordia")]
-        public async Task<IActionResult> BuscarPorDia([FromBody] RelatorioDiaViewModel requisicaoRelatorio)
+        [HttpGet("{username}")]
+        public async Task<IActionResult> BuscarTodos(string username)
         {
-            await _pontoService.MarcarPonto(usuario);
-            return Ok();
-        }*/
+            var listaRelatorio = await _relatorioService.BuscarTodas(username);
+            return Ok(listaRelatorio);
+        }
     }
 }

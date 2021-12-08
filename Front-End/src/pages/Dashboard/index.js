@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import api from '../../services/api.js';
 import { FaCheckSquare } from 'react-icons/fa';
 import { Navbar, Nav, Alert, Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
@@ -6,7 +7,11 @@ import { useHistory } from 'react-router-dom';
 import "../styles/dashboard.scss";
 
 const Dashboard = () => {
-    
+
+    const username = localStorage.getItem('userName');
+    const fullName = localStorage.getItem('fullName');
+
+
     let time = new Date().toLocaleTimeString();
 
     const [ctime, setCtime] = useState(time);
@@ -21,27 +26,37 @@ const Dashboard = () => {
     const history = useHistory();
 
     function Redirect(params) {
-        switch(params) {
+        switch (params) {
             case 'home':
                 history.push('/dashboard');
-            break;
+                break;
             case 'reports':
                 history.push('/reports');
-            break;
+                break;
             default:
                 history.push('/');
-            break;
+                localStorage.clear();
+                break;
         }
     }
 
     setInterval(UpdateTime, 1000);
 
     async function PointRegister() {
-        setShow(true);
+        try {
+            const data = {
+                username
+            }
+            const response = await api.post('/Ponto/marcar', data)
 
-        setTimeout(() => {
-            setShow(false)
-        }, 3000)
+            setShow(true);
+
+            setTimeout(() => {
+                setShow(false)
+            }, 3000)
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -64,9 +79,9 @@ const Dashboard = () => {
             <div className="container-bater-ponto">
                 <div className="itens-bater-ponto">
                     <Alert variant="success" show={show}>
-                        Ponto registrado com sucesso! 
+                        Ponto registrado com sucesso!
                     </Alert>
-                    <h1>Hello Matheus!</h1>
+                    <h1>Hello {fullName}!</h1>
                     <h1>{time}</h1>
                     Horário do Servidor
                     <button className="btn-registrar-ponto" onClick={PointRegister}>

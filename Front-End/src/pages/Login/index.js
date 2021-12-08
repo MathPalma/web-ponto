@@ -12,7 +12,6 @@ export default function Login() {
 
     async function Login(e) {
         e.preventDefault();
-
         const data = {
             userName,
             password
@@ -24,6 +23,9 @@ export default function Login() {
             localStorage.setItem('userName', userName);
             localStorage.setItem('accessToken', response.data.accessToken);
             localStorage.setItem('refreshToken', response.data.refreshToken);
+            localStorage.setItem('fullName', response.data.name);
+
+            history.push('/dashboard')
         } catch (e) {
             console.log(e);
         }
@@ -39,7 +41,7 @@ export default function Login() {
                 <h1>Web&Ponto</h1>
                 <input type="text" value={userName} onChange={e => setUserName(e.target.value)} placeholder="Usuário" />
                 <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Senha" />
-                <input type="submit" value="Entrar" onClick={Login} />
+                <input type="submit" value="Entrar"/>
                 <div className="forgot" onClick={Redirect}>Registrar-se</div>
             </form>
         </div>

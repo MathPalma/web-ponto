@@ -31,8 +31,8 @@ namespace Application.Services
         {
             try
             {
-                string senha = ComputeHash(userCredentials.Senha, new SHA256CryptoServiceProvider());
-                UsuarioModel user = await _authRepository.ValidarCredenciais(userCredentials.Usuario, senha);
+                string senha = ComputeHash(userCredentials.Password, new SHA256CryptoServiceProvider());
+                UsuarioModel user = await _authRepository.ValidarCredenciais(userCredentials.UserName, senha);
 
                 if (user == null) return null;
 
@@ -51,7 +51,7 @@ namespace Application.Services
                 DateTime createDate = DateTime.Now;
                 DateTime expirationDate = createDate.AddMinutes(_tokenConfiguration.Minutes);
 
-                return new TokenModel(true, createDate.ToString(DATE_FORMAT), expirationDate.ToString(DATE_FORMAT), accesToken, refreshToken);
+                return new TokenModel(user.Nome, true, createDate.ToString(DATE_FORMAT), expirationDate.ToString(DATE_FORMAT), accesToken, refreshToken);
             }
             catch (Exception ex)
             {
@@ -84,7 +84,7 @@ namespace Application.Services
             DateTime createDate = DateTime.Now;
             DateTime expirationDate = createDate.AddMinutes(_tokenConfiguration.Minutes);
 
-            return new TokenModel(true,
+            return new TokenModel("teste", true,
                 createDate.ToString(DATE_FORMAT),
                 expirationDate.ToString(DATE_FORMAT),
                 accesToken,
@@ -94,6 +94,19 @@ namespace Application.Services
         public async Task<bool> RevovarToken(string usuario)
         {
             return await _authRepository.RevogarToken(usuario);
+        }
+
+        public async Task RegistrarUsuario(UsuarioModel user)
+        {
+            try
+            {
+                user.Senha = ComputeHash(user.Senha, new SHA256CryptoServiceProvider());
+                await _authRepository.RegistrarUsuario(user);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private string ComputeHash(string password, SHA256CryptoServiceProvider sHA256CryptoServiceProvider)

@@ -1,8 +1,6 @@
+create database webponto; 
+
 use webponto;
-
-drop table Colaborador
-
-SELECT * FROM Colaborador
 
 create table Colaborador
 (

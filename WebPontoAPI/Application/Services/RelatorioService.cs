@@ -7,6 +7,7 @@ namespace Application.Services
 {
     public class RelatorioService : IRelatorioService
     {
+        /* 
         private readonly IRelatorioRepository _relatorioRepository;
         public RelatorioService(IRelatorioRepository relatorioRepository)
         {
@@ -17,5 +18,6 @@ namespace Application.Services
         {
             requisicaoRelatorio.Data.Hour = 0;
         }
+        */
     }
 }

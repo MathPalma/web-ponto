@@ -25,15 +25,15 @@ namespace DataAccessMySql.Repositories
 
             return await db.QueryFirstOrDefaultAsync<UsuarioModel>(query, parameters, commandType: CommandType.Text);
         }
-        public async Task<UsuarioModel> ValidarCredenciais(string usuario, string senha)
+        public async Task<UsuarioModel> ValidarCredenciais(string user, string password)
         {
             string query = @"SELECT ID, Usuario, Nome, Email, Telefone, RefreshToken, RefreshTokenTempoExpiracao
                             FROM Colaborador
-                            WHERE Usuario = @Usuario and Senha = @Senha";
+                            WHERE Usuario = @User and Senha = @Password";
 
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@Usuario", usuario, DbType.String);
-            parameters.Add("@Senha", senha, DbType.String);
+            parameters.Add("@User", user, DbType.String);
+            parameters.Add("@Password", password, DbType.String);
 
             return await db.QueryFirstOrDefaultAsync<UsuarioModel>(query, parameters, commandType: CommandType.Text);
         }

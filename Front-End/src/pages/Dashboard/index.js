@@ -1,11 +1,8 @@
 import React, { useState } from 'react'
 import { FaCheckSquare } from 'react-icons/fa';
+import Button from 'react-bootstrap/Button';
+import  { Navbar, Container } from 'react-bootstrap';
 
-import styled from 'styled-components';
-
-
-import './styles.css';
-import { Nav, NavLink, Bars, NavMenu, NavBtnLink, NavBtn } from './NavbarElements';
 
 const Dashboard = () => {
     let time = new Date().toLocaleTimeString();
@@ -20,20 +17,20 @@ const Dashboard = () => {
     setInterval(UpdateTime, 1000);
 
     return (
+        // <Navbar bg="dark" variant="dark">
+        //     <Container>
+        //     <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+        //     <Nav className="me-auto">
+        //     <Nav.Link href="#home">Home</Nav.Link>
+        //     <Nav.Link href="#features">Features</Nav.Link>
+        //     <Nav.Link href="#pricing">Pricing</Nav.Link>
+        //     </Nav>
+        //     </Container>
+        // </Navbar>
+        
         <div>
-            <Nav>
-                <NavMenu>
-                    <NavLink to="/Ponto">Bater Ponto</NavLink>
-                    <NavLink to="/Relatorios">Relatórios</NavLink>
-                </NavMenu>
-                <Bars />
-                <NavBtn>
-                    <NavBtnLink to="/">Sair</NavBtnLink>
-                </NavBtn>
-
-            </Nav>
             <h1>Hello Matheus!</h1>
-            <h3>Relógio de ponto virutal</h3>
+            <h3>Aponte suas horas</h3>
             <div className="container-bater-ponto">
                 <div className="itens-bater-ponto">
 
@@ -49,8 +46,6 @@ const Dashboard = () => {
 
                 </div>
             </div>
-
-
         </div>
     )
 }

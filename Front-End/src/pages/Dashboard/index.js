@@ -20,8 +20,18 @@ const Dashboard = () => {
 
     const history = useHistory();
 
-    async function Redirect() {
-        history.push('/');
+    function Redirect(params) {
+        switch(params) {
+            case 'home':
+                history.push('/dashboard');
+            break;
+            case 'reports':
+                history.push('/reports');
+            break;
+            default:
+                history.push('/');
+            break;
+        }
     }
 
     setInterval(UpdateTime, 1000);
@@ -35,18 +45,18 @@ const Dashboard = () => {
     }
 
     return (
-        <div class="container-dashboard">
+        <div className="container-dashboard">
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                 <Container>
-                    <Navbar.Brand href="#home">Web&Ponto</Navbar.Brand>
+                    <Navbar.Brand onClick={() => Redirect('home')}>Web&Ponto</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
-                            <Nav.Link href="#appointments">Bater Ponto</Nav.Link>
-                            <Nav.Link href="#reports">Relatórios</Nav.Link>
+                            <Nav.Link onClick={() => Redirect('home')}>Bater Ponto</Nav.Link>
+                            <Nav.Link onClick={() => Redirect('reports')}>Relatórios</Nav.Link>
                         </Nav>
                         <Nav>
-                            <Nav.Link onClick={Redirect}>Sair</Nav.Link>
+                            <Nav.Link onClick={() => Redirect('exit')}>Sair</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

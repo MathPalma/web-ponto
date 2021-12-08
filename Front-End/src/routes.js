@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import Report from './pages/Report';
 
 export default function Routes() {
     return (
@@ -14,6 +15,7 @@ export default function Routes() {
                 <Route path="/" exact component={Login}/>
                 <Route path="/Register" component={Register}/>
                 <Route path="/Dashboard" component={Dashboard}/>
+                <Route path="/Reports" component={Report}/>
             </Switch>
         </BrowserRouter>
     )

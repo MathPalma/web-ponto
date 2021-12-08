@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import api from '../../services/api.js';
 import { useHistory } from 'react-router-dom';
 
-import './styles.css';
+import "../styles/index.scss";
 
 export default function Login() {
     const [userName, setUserName] = useState('');
@@ -13,7 +13,7 @@ export default function Login() {
     async function Login(e) {
         e.preventDefault();
 
-        const data = { 
+        const data = {
             userName,
             password
         }
@@ -32,16 +32,16 @@ export default function Login() {
     async function Redirect() {
         history.push('/register');
     }
- 
+
     return (
-        <body> 
-            <form onSubmit={Login} class="box" method="post">
-            <h1>Web&Ponto</h1>
-            <input type="text" value={userName} onChange={e => setUserName(e.target.value)} placeholder="Usuário"/>
-            <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Senha"/>
-            <input type="submit" value="Entrar" onClick={Login} />
-            <div class="forgot" onClick={Redirect}>Registrar-se</div>
+        <div className="container">
+            <form onSubmit={Login} className="box" method="post">
+                <h1>Web&Ponto</h1>
+                <input type="text" value={userName} onChange={e => setUserName(e.target.value)} placeholder="Usuário" />
+                <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Senha" />
+                <input type="submit" value="Entrar" onClick={Login} />
+                <div className="forgot" onClick={Redirect}>Registrar-se</div>
             </form>
-        </body>
+        </div>
     );
 }

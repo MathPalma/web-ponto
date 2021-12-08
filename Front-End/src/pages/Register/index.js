@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import api from '../../services/api.js';
 import { useHistory } from 'react-router-dom';
 
-import './styles.css';
+import '../styles/index.scss';
 
 export default function Register() {
     const [userName, setUserName] = useState('');
@@ -17,7 +17,7 @@ export default function Register() {
     async function Register(e) {
         e.preventDefault();
 
-        const data = { 
+        const data = {
             userName,
             fullName,
             email,
@@ -35,20 +35,20 @@ export default function Register() {
     async function Redirect() {
         history.push('/');
     }
- 
+
     return (
-        <body> 
-            <form onSubmit={Register} class="box" method="post">
-            <h1>Web&Ponto</h1>
-            <input type="text" value={userName} onChange={e => setUserName(e.target.value)} placeholder="Usuário"/>
-            <input type="text" value={fullName} onChange={e => setUserFullName(e.target.value)} placeholder="Nome"/>
-            <input type="text" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email"/>
-            <input type="text" value={cellphone} onChange={e => setCellPhone(e.target.value)} placeholder="Telefone"/>
-            <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Senha"/>
-            <input type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} placeholder="Confirmar Senha"/>
-            <input type="submit" value="Cadastrar-se" onClick="login()"/>
-            <div class="forgot" onClick={Redirect}>Logar-se</div>
+        <div className="container">
+            <form onSubmit={Register} className="box" method="post">
+                <h1>Web&Ponto</h1>
+                <input type="text" value={userName} onChange={e => setUserName(e.target.value)} placeholder="Usuário" />
+                <input type="text" value={fullName} onChange={e => setUserFullName(e.target.value)} placeholder="Nome" />
+                <input type="text" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
+                <input type="text" value={cellphone} onChange={e => setCellPhone(e.target.value)} placeholder="Telefone" />
+                <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Senha" />
+                <input type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} placeholder="Confirmar Senha" />
+                <input type="submit" value="Cadastrar-se" onClick="login()" />
+                <div className="forgot" onClick={Redirect}>Logar-se</div>
             </form>
-        </body>
+        </div>
     );
 }
